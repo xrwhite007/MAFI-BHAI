@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>𝐌𝐀𝐅𝐈 𝐁𝐇𝐀𝐈 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋</title>
+<style>
+  html, body {
+    height: 100%; margin: 0; padding: 0;
+    background: #000;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    touch-action: none; 
+  }
+
+  iframe {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+    z-index: 1;
+  }
+
+  #uiContainer {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 9999999;
+    pointer-events: none;
+  }
+
+  /* --- Floating Mini Button --- */
+  #miniBtn {
+    pointer-events: auto;
+    position: fixed;
+    top: 20px; left: 20px;
+    width: 50px; height: 50px;
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: move;
+    box-shadow: 0 0 15px #00ffff;
+    z-index: 10;
+    overflow: hidden;
+    touch-action: none; 
+    user-select: none;
+  }
+  
+  #miniBtn img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  /* --- RGB Login Box --- */
+  #loginBox {
+    pointer-events: auto;
+    position: fixed;
+    width: 190px; height: 280px;
+    background: #0b0b14;
+    border-radius: 20px;
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 11;
+    touch-action: none; 
+  }
+
+  #loginBox::before {
+    content: '';
+    position: absolute;
+    width: 250%; height: 250%;
+    background: conic-gradient(from 0deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    animation: rotateGlow 4s linear infinite;
+    filter: blur(15px); 
+  }
+
+  #loginBox::after {
+      content: '';
+      position: absolute;
+      width: 250%; height: 250%;
+      background: conic-gradient(from 0deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+      animation: rotateGlow 4s linear infinite;
+  }
+
+  .inner-login {
+    position: absolute;
+    inset: 2px;
+    background: #0b0b14;
+    border-radius: 18px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+  }
+
+  @keyframes rotateGlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .logo-circle {
+    width: 45px; height: 45px;
+    border-radius: 50%;
+    border: 1.5px solid #00f2ff;
+    margin-bottom: 10px;
+    box-shadow: 0 0 8px #00f2ff;
+    overflow: hidden;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+  h1 {
+    color: #00d2ff; font-size: 9px; text-transform: uppercase;
+    margin-bottom: 12px; white-space: nowrap; letter-spacing: 0.5px;
+  }
+
+  #pwd { 
+    width: 100%; padding: 6px; 
+    background: rgba(0,0,0,0.5); border: 1.2px solid #00ffff; 
+    border-radius: 15px; color: #fff; 
+    text-align: center; font-size: 10px; 
+    margin-bottom: 2px; outline: none; 
+  }
+
+  #msg { font-size: 9px; margin-bottom: 5px; height: 10px; font-weight: bold; }
+
+  .btn { 
+    width: 90%; padding: 6px; 
+    border-radius: 15px; border: none;
+    font-weight: bold; cursor: pointer; font-size: 9px; 
+    text-transform: uppercase; margin-bottom: 6px;
+    color: white; text-decoration: none;
+  }
+  .login-btn { background: linear-gradient(to right, #00c6ff, #0072ff); }
+  .telegram-btn { background: linear-gradient(to right, #ff0000, #ff7b00); }
+
+  /* --- Mod Box --- */
+  #modBox {
+    pointer-events: auto;
+    position: fixed;
+    width: 170px; height: 130px;
+    background: rgba(13, 13, 31, 0.95);
+    backdrop-filter: blur(10px);
+    border: 2.5px solid #ff2eff;
+    border-radius: 15px;
+    display: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: move;
+    z-index: 11;
+    touch-action: none; 
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+  }
+
+  .closeBtn {
+    position: absolute;
+    top: 3px; right: 8px;
+    color: #ff4444; font-size: 18px; font-weight: bold; cursor: pointer;
+  }
+
+  .mod-title {
+    font-size: 12px; font-weight: bold;
+    background: linear-gradient(90deg, #00ffff, #ff00ff);
+    -webkit-background-clip: text; color: transparent;
+    margin-bottom: 8px; text-transform: uppercase;
+  }
+
+  .time { font-size: 10px; color: #aaffff; margin-bottom: 2px; }
+  .count { font-size: 18px; font-weight: bold; color: #ffff00; }
+  .signal { font-size: 20px; font-weight: 900; color: #00ffc8; margin-top: 4px; }
+  .footer-id { color: #555; font-size: 8px; margin-top: 5px; }
+</style>
+</head>
+<body>
+
+<iframe src="https://www.dkwin19.com#/register?invitationCode=52425100810"></iframe>
+
+<div id="uiContainer">
+  <div id="miniBtn" onclick="openBox()">
+    <img src="https://i.ibb.co.com/Fqf9D7jX/mafi.jpg" alt="Mafi">
+  </div>
+
+  <div id="loginBox">
+    <div class="inner-login">
+      <div class="closeBtn" onclick="closeBox()">×</div>
+      <div class="logo-circle"><img src="https://i.ibb.co.com/Fqf9D7jX/mafi.jpg"></div>
+      <h1>MAFI PREMIUM AI HACK</h1>
+      <input id="pwd" type="password" placeholder="Enter Key" autocomplete="off">
+      <div id="msg"></div>
+      <button class="btn login-btn" onclick="login()">Login</button>
+      <a href="https://t.me/+E53v_2hl0o03ZjI1" target="_blank" class="btn telegram-btn">TELEGRAM</a>
+      <div class="footer-id">ID: F-3888</div>
+    </div>
+  </div>
+
+  <div id="modBox">
+    <div class="closeBtn" onclick="closeBox()">×</div>
+    <div class="mod-title">𝐌𝐀𝐅𝐈 𝐁𝐇𝐀𝐈 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋</div>
+    <div class="time" id="timeNow">00:00:00</div>
+    <div class="count" id="countDown">0s</div>
+    <div id="signalText" class="signal">WAIT...</div>
+  </div>
+</div>
+
+<script>
+// ... (বাকি জাভাস্ক্রিপ্ট আগের মতোই থাকবে)
+let isLoggedIn = false;
+let prev30 = -1;
+
+function openBox() {
+  document.getElementById("miniBtn").style.display = "none";
+  if (!isLoggedIn) {
+    document.getElementById("loginBox").style.display = "flex";
+  } else {
+    document.getElementById("modBox").style.display = "flex";
+  }
+}
+
+function closeBox() {
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("modBox").style.display = "none";
+  document.getElementById("miniBtn").style.display = "flex";
+}
+
+function login(){
+  const userKey = document.getElementById('pwd').value;
+  const msg = document.getElementById('msg');
+  if(userKey === "Mafibhai"){
+    isLoggedIn = true;
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("modBox").style.display = "flex";
+  } else {
+    msg.style.color = "#ff4d4d";
+    msg.innerHTML = "Invalid Key!";
+    document.getElementById('pwd').value = "";
+  }
+}
+
+setInterval(() => {
+  const now = new Date();
+  const sec = now.getSeconds();
+  const modBoxDisplay = document.getElementById("modBox").style.display;
+
+  if (modBoxDisplay === "flex") {
+    document.getElementById("timeNow").innerText = now.toLocaleTimeString("en-GB");
+    const left = 30 - (sec % 30);
+    document.getElementById("countDown").innerText = left + "s";
+    let curr30 = Math.floor(sec / 30);
+    if (curr30 !== prev30) {
+      const signals = ["BIG", "SMALL"];
+      const randomSignal = signals[Math.floor(Math.random() * signals.length)];
+      document.getElementById("signalText").innerText = randomSignal;
+      prev30 = curr30;
+    }
+  }
+}, 500);
+
+function makeDraggable(el) {
+  let offsetX, offsetY, isDragging = false;
+  const start = (e) => {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "BUTTON" || e.target.className === "closeBtn" || e.target.className === "btn telegram-btn") return;
+    isDragging = true;
+    const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
+    const rect = el.getBoundingClientRect();
+    offsetX = clientX - rect.left;
+    offsetY = clientY - rect.top;
+  };
+  const move = (e) => {
+    if (!isDragging) return;
+    if(e.cancelable) e.preventDefault(); 
+    const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
+    el.style.left = (clientX - offsetX) + "px";
+    el.style.top = (clientY - offsetY) + "px";
+  };
+  const stop = () => isDragging = false;
+  
+  el.addEventListener("mousedown", start);
+  el.addEventListener("touchstart", start, {passive: true});
+  document.addEventListener("mousemove", move);
+  document.addEventListener("touchmove", move, {passive: false}); 
+  document.addEventListener("mouseup", stop);
+  document.addEventListener("touchend", stop);
+}
+
+makeDraggable(document.getElementById("miniBtn"));
+makeDraggable(document.getElementById("loginBox"));
+makeDraggable(document.getElementById("modBox"));
+</script>
+
+</body>
+</html>
